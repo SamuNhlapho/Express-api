@@ -1,0 +1,17 @@
+body {
+    background-color: lightslategray;
+}
+
+h1 {
+    text-align: center;
+
+}
+
+.greet {
+    border: 1px solid;
+    border-radius: 0.5em;
+    padding: 1em;
+    text-align: center;
+    margin-left: 15%;
+    margin-right: 15%;
+}
