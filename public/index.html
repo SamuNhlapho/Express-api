@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +9,21 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" defer></script>
 </head>
+
 <body>
 
     <h1><em>Greet API Widget</em></h1>
 
     <div class="greet">
 
-    <div x-data="{
-        username: 'Samukelisiwe',
+        <div x-data="{
+        username: '',
         greeting: '',
         language: '',
-        new_greeting: '',
+        new_greet: '',
         new_language: '',
         messages: '',
+
         greet() {
 
 
@@ -42,13 +45,14 @@
         },
 
         addGreeting() {
+            console.log('adding greeting')
             axios.post('/api/greet', {
                 'language': this.new_language,
-                'greeting': this.new_greet
+                'greet': this.new_greet
             })
             .then(result => {
+                console.log(result.data)
                 if (this.new_language && this.new_greet) {
-                    console.log(result.data)
                     this.messages = result.data.message;
                 } else {
                     this.messages = 'Enter a valid language and its greeting'
@@ -57,49 +61,48 @@
     }
     }">
 
-    <h2>Greetings</h2>   
-    
-    <div x-text="greeting"></div><br>
+            <h2>Greetings</h2>
 
-        <!-- <div x-text="language"></div> -->
+            <div x-text="greeting"></div><br>
 
-        <div>
-            <input type="radio" x-model="language" value="English" id="English">
-            <label for="english">English</label>
-            <input type="radio" x-model="language" value="IsiXhosa" id="IsiXhosa">
-            <label for="isixhosa">IsiXhosa</label>
-            <input type="radio" x-model="language" value="SeSotho" id="SeSotho">
-            <label for="sesotho">SeSotho</label>
+            <!-- <div x-text="language"></div> -->
+
+            <div>
+                <input type="radio" x-model="language" value="English" id="English">
+                <label for="english">English</label>
+                <input type="radio" x-model="language" value="IsiXhosa" id="IsiXhosa">
+                <label for="isixhosa">IsiXhosa</label>
+                <input type="radio" x-model="language" value="SeSotho" id="SeSotho">
+                <label for="sesotho">SeSotho</label>
+            </div>
+            <br>
+
+            <input type="text" x-model="username">
+            <input type="button" value="Greet" x-on:click="greet()">
+
+            <br>
+
+            <hr>
+
+            <div>
+                <h2>Add A New Language</h2>
+
+                <div>
+                    Language: <input type="text" x-model="new_language" placeholder="Type a Language"> <br>
+
+                    Greeting: <input type="text" x-model="new_greet" placeholder="Type a Greeting">
+
+                    <button x-on:click="addGreeting">Add Language</button>
+                </div>
+
+                <div x-text="messages"></div><br>
+            </div>
         </div>
-        <br>
 
-        <input type="text" x-model="username">
-        <input type="button" value="Greet" x-on:click="greet()">
-
-    </div>
-    <br>
-
-    <hr>
-
-    <div>
-        <h2>Add Language</h2>
-
-        <div class="area" x-text="messages"></div><br>
-
-        <div>
-           Language: <input type="text" x-model="new_language" placeholder="Type a Language">
-
-           Greeting: <input type="text" x-model="new_greet" placeholder="Type a Greeting">
-
-           <button x:on-click="addGreeting()">Add Language</button>
-        </div>
-    </div>
-   
 
     </div>
 
-    
-                          
-    
+
 </body>
+
 </html>
